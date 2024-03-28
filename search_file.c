@@ -29,14 +29,12 @@ void *searchFile(void *arg)
     }
 
     /**
-     * Start off by printing the thread id.
-     * Then loop over the opened file looking for the keyword.
+     * Loop over the opened file looking for the keyword.
      *  - If keyword found print the filename, line number and the line
-     * And end by printing a new line
     */
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        strcpy(tempLine, line)
+        strcpy(tempLine, line);
         token = strtok(tempLine, " \t\n");
         while (token != NULL)
         {
