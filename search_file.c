@@ -34,17 +34,15 @@ void *searchFile(void *arg)
      *  - If keyword found print the filename, line number and the line
      * And end by printing a new line
     */
-    printf("Thread #%lu:\n", data->threadID);
     while (fgets(line, sizeof(line), file) != NULL) 
     {
         if (strstr(line, data->keyword) != NULL) 
         {
-            printf("\t\tFound in file '%s' at line '%d': %s",
-                                data->filename, line_number, line);
+            printf("(Thread #%lu)t\tFound in file '%s' at line '%d': %s \n",
+                                data->threadID, data->filename, line_number, line);
         }
         line_number++;
     }
-    printf("\n");
 
     /**
      * Close the file & then close the thread as it's no
