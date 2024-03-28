@@ -40,14 +40,13 @@ void *searchFile(void *arg)
         token = strtok(tempLine, " \t\n");
         while (token != NULL)
         {
-            // Compare each word with the keyword
             if (strcmp(token, data->keyword) == 0)
             {
                 printf("(Thread #%lu)\tKeyword '%s' found in file '%s' at line '%d': %s \n",
                        data->threadID, data->keyword, data->filename, line_number, line);
-                break; // Once found, no need to continue checking the line
+                break;
             }
-            token = strtok(NULL, " \t\n"); // Move to the next word
+            token = strtok(NULL, " \t\n");
         }
         line_number++;
     }
