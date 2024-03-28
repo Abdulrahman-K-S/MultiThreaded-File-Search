@@ -14,7 +14,7 @@ void *searchFile(void *arg)
 {
     ThreadData *data = (ThreadData *)arg;
     data->threadID = pthread_self();
-    char line[MAX_LINE_LENGTH];
+    char line[MAX_LINE_LENGTH], tempLine[MAX_LINE_LENGTH], *token;
     int line_number = 1;
 
     /**
@@ -34,12 +34,20 @@ void *searchFile(void *arg)
      *  - If keyword found print the filename, line number and the line
      * And end by printing a new line
     */
-    while (fgets(line, sizeof(line), file) != NULL) 
+    while (fgets(line, sizeof(line), file) != NULL)
     {
-        if (strstr(line, data->keyword) != NULL) 
+        strcpy(tempLine, line)
+        token = strtok(tempLine, " \t\n");
+        while (token != NULL)
         {
-            printf("(Thread #%lu)t\tFound in file '%s' at line '%d': %s \n",
-                                data->threadID, data->filename, line_number, line);
+            // Compare each word with the keyword
+            if (strcmp(token, data->keyword) == 0)
+            {
+                printf("(Thread #%lu)\tKeyword '%s' found in file '%s' at line '%d': %s \n",
+                       data->threadID, data->keyword, data->filename, line_number, line);
+                break; // Once found, no need to continue checking the line
+            }
+            token = strtok(NULL, " \t\n"); // Move to the next word
         }
         line_number++;
     }
